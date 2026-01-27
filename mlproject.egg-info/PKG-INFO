@@ -1,0 +1,14 @@
+Metadata-Version: 2.4
+Name: mlproject
+Version: 0.0.1
+Author: Pulkit Chhabra
+Author-email: pulkitchhabra33@gmail.com
+License-File: LICENSE
+Requires-Dist: numpy
+Requires-Dist: pandas
+Requires-Dist: seaborn
+Requires-Dist: matplotlib
+Dynamic: author
+Dynamic: author-email
+Dynamic: license-file
+Dynamic: requires-dist
