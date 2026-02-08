@@ -4,7 +4,7 @@ import pandas as pd
 from src.MLProject2.logger import logging
 from src.MLProject2.exception import CustomException
 from src.MLProject2.utils import read_sql_data
-from sklearn.metrics import train_test_split
+from sklearn.model_selection import train_test_split
 from dataclasses import dataclass
 
 

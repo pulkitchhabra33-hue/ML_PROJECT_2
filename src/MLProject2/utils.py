@@ -9,7 +9,7 @@ import pymysql
 load_dotenv()
 
 host= os.getenv("host")
-user= os.getenv("root")
+user= os.getenv("user")
 password= os.getenv("password")
 db= os.getenv("db")
 
@@ -23,7 +23,7 @@ def read_sql_data():
             db= db
         )
         
-        logging.info("Connection Established", my_db)
+        logging.info(f"Connection Established: {my_db}")
         df= pd.read_sql_query("select * from churn_dataset", my_db)
         print(df.head())
 
