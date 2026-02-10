@@ -7,6 +7,9 @@ from dotenv import load_dotenv
 import pymysql
 import pickle
 import numpy as np
+from sklearn.model_selection import GridSearchCV
+from sklearn.metrics import r2_score
+from sklearn.metrics import accuracy_score
 
 load_dotenv()
 
@@ -47,8 +50,36 @@ def save_object(file_path, obj):
 
     except Exception as e:
         raise CustomException(e, sys)
+        
+def evaluate_models(X_train, X_test, y_train, y_test, models, param):
+    try:
+        logging.info("Model Evaluation started")
+        report= {}
 
+        y_train = np.where(y_train == "Yes", 1, 0)
+        y_test = np.where(y_test == "Yes", 1, 0)
 
+        
+        for model_name, model in models.items():
+            para = param[model_name]
 
+            gs = GridSearchCV(model, para, cv=3)
+            gs.fit(X_train, y_train)
 
+            best_model = gs.best_estimator_
 
+            y_test_pred = best_model.predict(X_test)
+            
+            if len(np.unique(y_test_pred)) > 2:
+                y_test_pred = (y_test_pred > 0.5).astype(int)
+
+            test_model_score = accuracy_score(y_test, y_test_pred)
+
+            report[model_name] = test_model_score
+
+            print(f"{model_name}: {test_model_score}")
+
+        return report
+    
+    except Exception as e:
+        raise CustomException(e, sys)
